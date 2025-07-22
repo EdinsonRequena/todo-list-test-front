@@ -1,8 +1,8 @@
 import type { JSX } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import { LoginPage } from "./auth/pages/LoginPage";
-import { RegisterPage } from "./auth/pages/RegisterPage";
+import { LoginPage } from "./features/auth/pages/LoginPage";
+import { RegisterPage } from "./features/auth/pages/RegisterPage";
 // import TasksPage from "./tasks/pages/TasksPage";
 
 import { AuthProvider } from "./contexts/AuthContext";
@@ -13,7 +13,7 @@ function Private({ children }: { children: JSX.Element }) {
   return user ? children : <Navigate to="/login" replace />;
 }
 
-export default function AppRoutes() {
+export function AppRoutes() {
   return (
     <AuthProvider>
       <BrowserRouter>

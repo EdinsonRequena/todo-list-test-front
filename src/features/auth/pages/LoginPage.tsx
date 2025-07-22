@@ -1,16 +1,16 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/useAuth";
-import { FieldSet } from "../../components/FieldSet";
-import { Button } from "../../components/Button";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../../contexts/useAuth";
+import { FieldSet } from "../../../components/FieldSet";
+import { Button } from "../../../components/Button";
 
 interface FormVals {
   email: string;
   password: string;
 }
 
-export function RegisterPage() {
-  const { register: signup } = useAuth();
+export function LoginPage() {
+  const { login } = useAuth();
   const nav = useNavigate();
   const {
     register,
@@ -21,7 +21,7 @@ export function RegisterPage() {
 
   const onSubmit = async (d: FormVals) => {
     try {
-      await signup(d.email, d.password);
+      await login(d.email, d.password);
       nav("/tasks");
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -36,7 +36,7 @@ export function RegisterPage() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-sm space-y-5 rounded bg-gray-800 p-8"
       >
-        <h1 className="text-center text-2xl font-bold">Register</h1>
+        <h1 className="text-center text-2xl font-bold">Login</h1>
 
         <FieldSet
           id="email"
@@ -56,13 +56,13 @@ export function RegisterPage() {
         />
 
         <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting ? "..." : "Create account"}
+          {isSubmitting ? "..." : "Login"}
         </Button>
 
         <p className="text-center text-sm">
-          Already have an account?{" "}
-          <Link to="/login" className="text-indigo-400">
-            Login
+          No account?{" "}
+          <Link to="/register" className="text-indigo-400">
+            Register
           </Link>
         </p>
       </form>
