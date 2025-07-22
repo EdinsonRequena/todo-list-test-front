@@ -39,8 +39,8 @@ export function useTasks() {
     id: number,
     d: { title?: string; description?: string }
   ) => {
-    const t = await updateTask(id, d);
-    setTasks((prev) => prev.map((tk) => (tk.id === id ? t : tk)));
+    const { task: updated } = await updateTask(id, d);
+    setTasks((prev) => prev.map((tk) => (tk.id === id ? updated : tk)));
   };
 
   const toggle = async (id: number) => {

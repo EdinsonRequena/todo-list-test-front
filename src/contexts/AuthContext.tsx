@@ -5,6 +5,7 @@ type User = Awaited<ReturnType<typeof authSvc.login>>;
 
 interface AuthContextProps {
   user: User | null;
+  loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -14,6 +15,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -25,6 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem("user");
       }
     }
+    setLoading(false);
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -46,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
+    <AuthContext.Provider value={{ loading, user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );

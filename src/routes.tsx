@@ -9,7 +9,8 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { useAuth } from "./contexts/useAuth";
 
 function Private({ children }: { children: JSX.Element }) {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  if (loading) return null;
   return user ? children : <Navigate to="/login" replace />;
 }
 

@@ -9,6 +9,11 @@ export interface Task {
   updatedAt: string;
 }
 
+interface UpdateResp {
+  message: string;
+  task: Task;
+}
+
 /**
  * Converts an object of key-value pairs into a URL query string.
  *
@@ -35,7 +40,7 @@ export const createTask = (body: { title: string; description?: string }) =>
 export const updateTask = (
   id: number,
   body: { title?: string; description?: string }
-) => api.patch<Task, typeof body>(`tasks/${id}`, body);
+) => api.patch<UpdateResp, typeof body>(`tasks/${id}`, body);
 
 export const toggleTask = (id: number) =>
   api.patch<Task, object>(`tasks/${id}/toggle`, {});

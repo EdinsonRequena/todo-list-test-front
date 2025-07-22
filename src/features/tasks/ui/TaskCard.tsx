@@ -5,9 +5,10 @@ interface TaskCardProps {
   task: Task;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
+  onEdit: (t: Task) => void;
 }
 
-export function TaskCard({ task, onToggle, onDelete }: TaskCardProps) {
+export function TaskCard({ task, onToggle, onDelete, onEdit }: TaskCardProps) {
   return (
     <li className="flex justify-between rounded border border-gray-700 p-4">
       <div>
@@ -21,6 +22,7 @@ export function TaskCard({ task, onToggle, onDelete }: TaskCardProps) {
         <Button onClick={() => onToggle(task.id)}>
           {task.completed ? "✅" : "⬜️"}
         </Button>
+        <Button onClick={() => onEdit(task)}>✏️</Button>
         <Button className="bg-red-600" onClick={() => onDelete(task.id)}>
           🗑
         </Button>
