@@ -5,7 +5,7 @@ import {
   type FieldValues,
 } from "react-hook-form";
 
-interface Props<T extends FieldValues>
+interface FieldSetProps<T extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
   id: keyof T & string;
   label: string;
@@ -19,7 +19,7 @@ export function FieldSet<T extends FieldValues>({
   error,
   register,
   ...rest
-}: Props<T>) {
+}: FieldSetProps<T>) {
   return (
     <fieldset className="space-y-1">
       <label htmlFor={id} className="text-sm text-gray-300">

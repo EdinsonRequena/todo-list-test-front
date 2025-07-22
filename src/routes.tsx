@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { LoginPage } from "./features/auth/pages/LoginPage";
 import { RegisterPage } from "./features/auth/pages/RegisterPage";
-// import TasksPage from "./tasks/pages/TasksPage";
+import { TasksPage } from "./features/tasks/pages/TasksPage";
 
 import { AuthProvider } from "./contexts/AuthContext";
 import { useAuth } from "./contexts/useAuth";
@@ -24,7 +24,7 @@ export function AppRoutes() {
             path="/tasks"
             element={
               <Private>
-                <h1>estoy en tasks</h1>
+                <TasksPage />
               </Private>
             }
           />
