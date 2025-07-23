@@ -9,15 +9,19 @@ export interface Task {
   updatedAt: string;
 }
 
-interface UpdateResp {
-  message: string;
-  task: Task;
+export interface TaskListResponse {
+  items: Task[];
+  page: number;
+  limit: number;
+  total: number;
+  pages: number;
 }
 
 /**
- * Converts an object of key-value pairs into a URL query string.
+ * Converts an object containing query parameters into a URL-encoded query string.
  *
- * @param params - An object where keys are strings and values are either strings or numbers.
+ * @param params - An object where the keys are parameter names and the values are
+ * either strings or numbers representing the query parameters.
  * @returns A URL-encoded query string representation of the input parameters.
  *
  * @example
@@ -32,7 +36,7 @@ const toQuery = (params: Record<string, string | number>) =>
   ).toString();
 
 export const listTasks = (params: Record<string, string | number>) =>
-  api.get<Task[]>(`tasks?${toQuery(params)}`);
+  api.get<TaskListResponse>(`tasks?${toQuery(params)}`);
 
 export const createTask = (body: { title: string; description?: string }) =>
   api.post<Task, typeof body>("tasks", body);
@@ -40,7 +44,7 @@ export const createTask = (body: { title: string; description?: string }) =>
 export const updateTask = (
   id: number,
   body: { title?: string; description?: string }
-) => api.patch<UpdateResp, typeof body>(`tasks/${id}`, body);
+) => api.patch<{ task: Task }, typeof body>(`tasks/${id}`, body);
 
 export const toggleTask = (id: number) =>
   api.patch<Task, object>(`tasks/${id}/toggle`, {});

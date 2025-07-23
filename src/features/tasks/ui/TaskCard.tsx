@@ -1,7 +1,7 @@
 import { Button } from "../../../components/Button";
 import type { Task } from "../../../services/task";
 
-interface TaskCardProps {
+export interface TaskCardProps {
   task: Task;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
